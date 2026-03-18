@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotspot Data Manager - Preview</title>
+    <link rel="stylesheet" href="preview.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="phone-frame">
+        <div class="status-bar">
+            <span>3:23 PM</span>
+            <div class="status-icons">
+                <span class="icon">📶</span>
+                <span class="icon">🔋</span>
+            </div>
+        </div>
+        
+        <header class="app-bar">
+            <h1 id="screen-title">Dashboard</h1>
+        </header>
+
+        <main id="content">
+            <!-- Dashboard Screen -->
+            <div id="dashboard-screen" class="screen active">
+                <div class="summary-cards">
+                    <div class="card">
+                        <span class="card-label">Total Data Used</span>
+                        <span class="card-value">450 MB</span>
+                    </div>
+                    <div class="card">
+                        <span class="card-label">Active Devices</span>
+                        <span class="card-value">2</span>
+                    </div>
+                </div>
+
+                <div class="chart-section">
+                    <h3>Usage History</h3>
+                    <div class="chart-container">
+                        <canvas id="usageChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Devices Screen -->
+            <div id="devices-screen" class="screen">
+                <div class="device-list">
+                    <div class="device-item">
+                        <div class="device-info">
+                            <span class="device-name">Galaxy S21</span>
+                            <span class="device-mac">AA:BB:CC:DD:EE:01</span>
+                        </div>
+                        <div class="speed-info">
+                            <span class="speed-down">↓ 1.2 MB/s</span>
+                            <span class="speed-up">↑ 240 KB/s</span>
+                        </div>
+                        <button class="btn-block">Block</button>
+                    </div>
+                    <div class="device-item">
+                        <div class="device-info">
+                            <span class="device-name">iPhone 13</span>
+                            <span class="device-mac">AA:BB:CC:DD:EE:02</span>
+                        </div>
+                        <div class="speed-info">
+                            <span class="speed-down">↓ 45 KB/s</span>
+                            <span class="speed-up">↑ 12 KB/s</span>
+                        </div>
+                        <button class="btn-block">Block</button>
+                    </div>
+                </div>
+                
+                <div class="actions-section">
+                    <button id="btnRestart" class="btn-primary">Restart Hotspot</button>
+                </div>
+            </div>
+        </main>
+
+        <nav class="bottom-nav">
+            <div class="nav-item active" data-screen="dashboard">
+                <span class="nav-icon">📊</span>
+                <span class="nav-label">Dashboard</span>
+            </div>
+            <div class="nav-item" data-screen="devices">
+                <span class="nav-icon">📱</span>
+                <span class="nav-label">Devices</span>
+            </div>
+        </nav>
+
+        <!-- Device Details Modal (GlassWire Style) -->
+        <div id="details-modal" class="modal">
+            <div class="modal-content">
+                <header class="modal-header">
+                    <button class="btn-close">&lsaquo; Back</button>
+                    <h2 id="modal-device-name">Galaxy S21 Details</h2>
+                </header>
+                
+                <div class="glass-report">
+                    <div class="circular-stat">
+                        <div class="circle-box">
+                            <canvas id="detailCircleChart" width="120" height="120"></canvas>
+                            <div class="circle-text">
+                                <span class="label">Total</span>
+                                <span class="value" id="modal-total">841 MB</span>
+                            </div>
+                        </div>
+                        <div class="stat-rows">
+                            <div class="stat-row">
+                                <span class="dot incoming"></span>
+                                <span class="label">Incoming</span>
+                                <span class="value">789.9 MB</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="dot outgoing"></span>
+                                <span class="label">Outgoing</span>
+                                <span class="value">51.1 MB</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="apps-usage">
+                        <h3>Apps</h3>
+                        <div class="app-usage-item">
+                            <img src="https://www.gstatic.com/images/branding/product/1x/youtube_64dp.png" class="app-icon">
+                            <div class="app-bar-container">
+                                <div class="app-name-row">
+                                    <span>YouTube</span>
+                                    <span>512.4 MB</span>
+                                </div>
+                                <div class="progress-bar"><div class="fill" style="width: 70%; background: #FF0000;"></div></div>
+                            </div>
+                        </div>
+                        <div class="app-usage-item">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="app-icon" style="width: 24px;">
+                            <div class="app-bar-container">
+                                <div class="app-name-row">
+                                    <span>WhatsApp</span>
+                                    <span>120.2 MB</span>
+                                </div>
+                                <div class="progress-bar"><div class="fill" style="width: 30%; background: #25D366;"></div></div>
+                            </div>
+                        </div>
+                        <div class="app-usage-item">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" class="app-icon" style="width: 24px;">
+                            <div class="app-bar-container">
+                                <div class="app-name-row">
+                                    <span>Facebook</span>
+                                    <span>84.7 MB</span>
+                                </div>
+                                <div class="progress-bar"><div class="fill" style="width: 20%; background: #1877F2;"></div></div>
+                            </div>
+                        </div>
+                        <div class="app-usage-item">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg" class="app-icon" style="width: 24px;">
+                            <div class="app-bar-container">
+                                <div class="app-name-row">
+                                    <span>TikTok</span>
+                                    <span>65.1 MB</span>
+                                </div>
+                                <div class="progress-bar"><div class="fill" style="width: 15%; background: #000000;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="history-graph">
+                        <h3>Usage history</h3>
+                        <canvas id="detailGraph" height="150"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="preview.js"></script>
+</body>
+</html>

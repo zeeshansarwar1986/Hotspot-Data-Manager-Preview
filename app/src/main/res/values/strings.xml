@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Hotspot Data Manager</string>
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_devices">Devices</string>
+    <string name="total_data_used">Total Data Used</string>
+    <string name="active_devices">Active Devices</string>
+    <string name="hotspot_status">Hotspot Status</string>
+</resources>
